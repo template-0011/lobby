@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "lib": ["esnext", "dom"],
+    "noLib": false,
+    "useDefineForClassFields": true,
+    "baseUrl": ".",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "resolveJsonModule": true,
+    "types": ["vite/client", "unplugin-icons/types/vue", "element-plus/global"],
+    "allowJs": true,
+    "strict": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true /* 允许默认导入 */,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "src/types/**/*.d.ts",
+    "mock/**/*.ts",
+    "vite.config.ts",
+    "src/01-kk-system/allUtils/eventEmitter.ts",
+    "src/02-kk-i18n-admin/webCluster/zh_CN/form.js"
+  ],
+  "exclude": ["node_modules", "dist", "**/*.js"]
+}

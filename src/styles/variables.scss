@@ -1,0 +1,22 @@
+/** 全局SCSS变量 */
+
+:root {
+  --menu-text: #bfcbd9;
+  --menu-active-text: var(--el-menu-active-color);
+  --menu-hover: #263445;
+  --swiper-theme-color: #007aff;
+}
+
+$menu-background: var(--cp-color44, #000000); // 菜单背景色
+$menu-text: var(--menu-text); // 菜单文字颜色
+$menu-active-text: var(--menu-active-text); // 菜单激活文字颜色
+$menu-hover: var(--menu-hover); // 菜单悬停背景色
+$sidebar-logo-background: var(--cp-color61); // 侧边栏 Logo 背景色
+
+$sidebar-width: 230px; // 侧边栏宽度
+$navbar-height: 52px; // 导航栏高度
+$navbar-top-height: 84px; // 导航栏高度
+$navbar-nav-height: 50px; // 导航栏高度
+$normal-bg: var(--kk-body-bg-color); // 导航背景
+$tags-view-height: 34px; // TagsView 高度
+$kk-content-width: 1400px;

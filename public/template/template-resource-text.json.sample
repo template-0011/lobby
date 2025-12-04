@@ -1,0 +1,19 @@
+{
+  "text": [
+    {
+	  "tag": "botton-title",
+      "pos": "1",
+      "lengthDes": "2-10"
+    },
+    {
+	  "tag": "botton-desc",
+      "pos": "1",
+      "lengthDes": "2-8"
+    },
+    {
+	  "tag": "card-desc",
+      "pos": "1",
+      "lengthDes": "2-40"
+    }
+  ]
+}
