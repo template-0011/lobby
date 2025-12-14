@@ -103,6 +103,7 @@ export const useUserStore = defineStore("user", () => {
       currentWalletInfo.value.walletType = currentWalletType;
       currentWalletInfo.value.currencyCode = currentCurrencyCode;
       kkAuth.setUserInfo(data);
+      getUserBanlance()
     }
   }
 

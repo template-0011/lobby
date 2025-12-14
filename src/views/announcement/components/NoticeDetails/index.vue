@@ -1,4 +1,7 @@
 <script setup lang="ts">
+  defineOptions({
+    name: 'NoticeDetailsContent',
+  });
 defineProps({
   detail: {
     type: Object,

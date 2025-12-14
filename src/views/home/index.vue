@@ -5,15 +5,33 @@
       <a class="flex-1 cursor-pointer" v-for="item in [1,2,3,4]" :key="item">
         <div class="row-card-item">
           <div class="z-1">
-            <p class="text-24px font-600 color-#ffffff">Poker</p>
-            <p class="text-13px font-400 max-w-174px mt-3px color-#ffffff">免费锦标赛</p>
+            <p class="text-24px font-600 color-#ffffff">Sports</p>
+            <p class="text-13px font-400 max-w-174px mt-3px color-#ffffff">大型锦标赛</p>
           </div>
           <div class="h-60px w-60px bg-gray-800 z-1 rounded-1 mr-4">
           </div>
         </div>
       </a>
     </div>
+
     <div class="grid grid-cols-2 gap-4">
+      <div v-for="item in sportsList2" :key="item.outerGamerID" class="kk-sports-card w-full mt-5">
+        <div class="w-full h-full flex items-center relative col-span-4">
+          <div class="max-w-40%">
+            <img class="w-60px h-60px object-contain" :src="item.activeIcon" alt="">
+            <p class="text-16px leading-6 color-white ">
+              {{ item.subTxt }}
+            </p>
+            <div @click="goToGame(item)" class="kk-jump-btn" style="--kk-jump-btn-bg: linear-gradient(255deg, #fac82e, #fac82e); --kk-jump-btn-text-color: #000;">
+              {{ $t('web.i18nFront.game.goToGame') }}
+            </div>
+          </div>
+          <img class="absolute right-0 top-[10%] h-[70%] object-contain" :src="item.image" alt="">
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mt-5">
       <!-- <HomeCardContainer>
         <template #header>
           <div class="flex items-center justify-between px-6 pt-6 pb-1">
@@ -93,6 +111,7 @@ import { HotGame } from "./config/menuList";
 import dayjs from "dayjs";
 import { IObject } from "@/01-kk-system/allHttp/types/common";
 import { localImg } from "@/01-kk-system/allUtils/utils";
+import { useSports } from "../sports/useSports";
 
 defineOptions({
   name: "Home",
@@ -111,6 +130,8 @@ const BarColor = {
 }
 
 const { t } = useI18n()
+
+const { sportsList: sportsList2, goToGame } = useSports();
 
 const lotteryCategoryList = ref<Record<string, any>[]>([]);
 const loading = ref(false);
@@ -375,5 +396,13 @@ onBeforeMount(() => {
   line-height: 26px;
   text-align: center;
   color: var(--cp-color4);
+}
+
+.kk-sports-card {
+  background: linear-gradient(180.11deg, rgba(0, 0, 0, 0) 30.82%, rgba(31, 3, 80, .2) 99.91%), radial-gradient(64.3% 77.79% at 50.04% 90.29%, #4a0ab3 0%, rgba(112, 44, 246, 0) 100%), linear-gradient(123.86deg, #7572fc 6.33%, #702cf6 48.47%, #5110bc 98.95%), #7742e8;
+  padding: 30px;
+  height: 505px;
+  border-radius: 20px;
+  position: relative;
 }
 </style>

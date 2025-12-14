@@ -87,9 +87,9 @@ export const useAppStore = defineStore("app", () => {
   async function getAppBanners(isLocal: boolean = false) {
     if (isLocal || window.location?.origin?.includes('localhost') || window.location?.origin?.includes('kk-template')) {
       return [
+        localImg(`custom-images/banner/banner3.avif`),
         localImg(`custom-images/banner/banner1.avif`),
         localImg(`custom-images/banner/banner2.avif`),
-        localImg(`custom-images/banner/banner3.avif`),
         localImg(`custom-images/banner/banner4.avif`),
         localImg(`custom-images/banner/banner5.avif`),
       ]

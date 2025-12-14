@@ -4,6 +4,7 @@ import type { IObject } from '@/01-kk-system/allHttp/types/common'
 import useLinkOpenFunc from '@/04-kk-component-admin/components/hooks/useLinkOpenFunc';
 import { useGameCollectionStore, useGameStore } from '@/store';
 import { LOCAL_FAVORITE_GAMES } from '@/01-kk-system/allDefine/common/const';
+import { useGoGameRoom } from '@/hooks/useGoGameRoom';
 
 defineOptions({
   name: "KKGameCard",
@@ -99,12 +100,16 @@ async function getOuterGamerName(info: Record<string, any>) {
   }
 }
 
-function onClickCard(item: Record<string, any>) {
+const { goToGameRoom } = useGoGameRoom()
+
+async function onClickCard(item: Record<string, any>) {
+  let url = ''
   if (props.type === 'outer') {
-    onClickOuterSubGame(item)
+    url = await onClickOuterSubGame(item, true)
   } else {
-    onClickClassiGame(item)
+    url = await onClickClassiGame(item, true) as string
   }
+  goToGameRoom(item, encodeURIComponent(url || ''))
 }
 
 function onStar(item: Record<string, any>) {

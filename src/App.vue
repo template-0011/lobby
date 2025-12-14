@@ -46,7 +46,7 @@ const init = async () => {
   // // 客服
   // await chartStore.loadChat();
   await Promise.allSettled([
-    chartStore.loadChat(), // 客服
+    chartStore.loadChat(true), // 客服
     appStore.getDiffConfig(), // 差异化
     gameStore.fetchAllGroups(), // 游戏分组
     gameStore.getOuterGamerList(), // 外部游戏提供商

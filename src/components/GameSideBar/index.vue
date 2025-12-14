@@ -80,13 +80,13 @@ function getImage(info: Record<string, any>) {
   }
 }
 
-function onClickCard(item: Record<string, any>) {
-  if (props.type === 'outer') {
-    onClickOuterSubGame(item)
-  } else {
-    onClickClassiGame(item)
-  }
-}
+// function onClickCard(item: Record<string, any>) {
+//   if (props.type === 'outer') {
+//     onClickOuterSubGame(item)
+//   } else {
+//     onClickClassiGame(item)
+//   }
+// }
 
 function onClickCollection() {
   isCollect.value = !isCollect.value

@@ -105,6 +105,14 @@ export const constantRoutes: RouteRecordRaw[] = [
           alwaysShow: false,
         },
       },
+      {
+        path: "game-room",
+        component: () => import("@/views/gameRoom/index.vue"),
+        name: "GameRoom",
+        meta: {
+          title: "游戏房间",
+        },
+      },
       // {
       //   path: "realbet",
       //   component: () => import("@/views/realbet/index.vue"),

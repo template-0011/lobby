@@ -68,8 +68,8 @@ html {
 
   --color-gd-green: rgb(49, 188, 105), rgb(8, 158, 78);
   --header-wallet-height: 20px;
-  --header-wallet-bg-color: var(--color-n700);
-  --header-wallet-text-color: var(--color-n70);
+  --header-wallet-bg-color: #276aa5;
+  --header-wallet-text-color: #ffffff;
   --header-wallet-text-size: 12px;
 }
 
@@ -96,7 +96,7 @@ html.dark {
 }
 
 .body-class {
-  --el-color-primary: #597ef7;
+  --el-color-primary: #1d4268;
   --kk-money-color: #ffaf13;
 }
 
@@ -210,5 +210,28 @@ html.dark {
   }
   100% {
     left: 125%;
+  }
+}
+
+@keyframes kk-anim-scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes kk-anim-shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+  100% {
+    transform: rotate(0deg);
   }
 }

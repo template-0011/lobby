@@ -1,60 +1,136 @@
 <template>
   <div class="h-52px w-full px-4 flex items-center justify-between">
-    <div class="flex items-center"></div>
+    <div class="flex items-center">
+      <Logo />
+    </div>
     <div class="flex items-center">
       <div class="nav-right-item">
-        <div
-          class="flex items-center bg-[#4e5d864d] h-6 rounded-full cursor-pointer relative"
-        >
-          <div class="image-box">
-            <img
-              src="@/assets/images/icons/icon-gift.svg"
-              alt="icon-gift"
-              class="w-4 h-4"
-            />
-          </div>
-          <div class="text-white text-10px font-bold mr-6">
-            {{ $t("web.i18nFront.title.promotion") }}
-          </div>
-          <img
-            src="@/assets/images/gift.png"
-            alt="icon-arrow-down"
-            class="h-54px transform -rotate-13 absolute -right-17px -top-17px pointer-events-none"
-          />
-        </div>
-      </div>
-      <div class="nav-right-item">
         <el-popover
-          class="box-item"
           placement="bottom"
-          width="200px"
+          width="auto"
+          popper-style="--el-popover-font-size: 11px;--el-popover-padding: 4px;min-width: auto;padding: 4px 8px;color: #276aa5;"
         >
           <template #reference>
-            <div
-              class="flex items-center gap-2 bg-[#4e5d864d] px-2 py-5px rounded-6px cursor-pointer relative"
-            >
-              <svg-icon icon-class="icon-ios" color="#BCBCBC" class="w-4 h-4" />
-              <svg-icon icon-class="icon-android" color="#6C8B10" class="w-4 h-4" />
+            <div class="w-8 h-8 rounded-2 bg-[#276aa5] flex-center group cursor-pointer">
+              <img
+                src="@/assets/images/icons/icon-gift.svg"
+                alt="icon-gift"
+                class="w-4 h-4 group-hover:animate-[kk-anim-shake_0.3s_ease-in-out]"
+              />
             </div>
           </template>
-          <div class="flex flex-col items-center gap-3">
-            <div class="p-4 bg-[#eef2fe] rounded-2 border-1 border-white my-4">
-              <img class="w-120px h-120px" :src="qrcode" alt="APP QR Code" />
-            </div>
-            <p>{{ $t("web.i18nFront.desc.appDownload") }}</p>
+          <div class="flex flex-col items-center p-0">
+            <p>{{ '成为支付代理商' }}</p>
           </div>
         </el-popover>
       </div>
-      <div class="elative">
+      <div class="nav-right-item">
+        <el-popover
+          placement="bottom"
+          width="auto"
+          popper-style="--el-popover-font-size: 11px;--el-popover-padding: 4px;min-width: auto;padding: 4px 8px;color: #276aa5;"
+        >
+          <template #reference>
+            <div class="w-8 h-8 rounded-2 bg-[#276aa5] flex-center group cursor-pointer">
+              <img
+                src="@/assets/images/icons/icon-gift.svg"
+                alt="icon-gift"
+                class="w-4 h-4 group-hover:animate-[kk-anim-scale_0.3s_ease-in-out]"
+              />
+            </div>
+          </template>
+          <div class="flex flex-col items-center p-0">
+            <p>{{ '存款' }}</p>
+          </div>
+        </el-popover>
+      </div>
+      <div class="nav-right-item">
+        <el-popover
+          placement="bottom"
+          width="auto"
+          popper-style="--el-popover-font-size: 11px;--el-popover-padding: 4px;min-width: auto;padding: 4px 8px;color: #276aa5;"
+        >
+          <template #reference>
+            <div class="w-8 h-8 rounded-2 bg-[#276aa5] flex-center group cursor-pointer">
+              <img
+                src="@/assets/images/icons/icon-gift.svg"
+                alt="icon-gift"
+                class="w-4 h-4 group-hover:animate-[kk-anim-shake_0.3s_ease-in-out]"
+              />
+            </div>
+          </template>
+          <div class="flex flex-col items-center p-0">
+            <p>{{ '奖励' }}</p>
+          </div>
+        </el-popover>
+      </div>
+      <template v-if="!isLoggedIn">
+        <div class="nav-right-item">
+          <button class="bg-[#7eac2f] h-8 hover:bg-[#93c738] text-white cursor-pointer transition-all py-1 px-4 rounded-2 duration-300 text-sm flex-center" @click="onShowLogin">
+            <span>
+              {{ $t("system.i18nSystem.opration.register") }}
+            </span>
+          </button>
+        </div>
+        <div class="nav-right-item">
+          <button class="bg-[#276aa5] h-8 hover:bg-[#3387d1] text-white cursor-pointer transition-all py-1 px-4 rounded-2 duration-300 text-sm flex-center" @click="onShowLogin">
+            <span>
+              {{ $t("system.i18nSystem.opration.login") }}
+            </span>
+          </button>
+        </div>
+      </template>
+      <template v-else>
+        <Avatar />
+        <div class="flex-center mr-10px h-8 rounded-r-2 rounded-l-none overflow-hidden bg-[#276aa5]">
+          <div class="flex flex-row items-end">
+            <WalletAndCurrencySelector :show-title="false" />
+            <div class="leading-20px text-12px color-white font-600">
+              {{ balance }}
+            </div>
+          </div>
+          <div class="w-1px h-4 bg-white/20 mx-2"></div>
+          <el-icon class="text-12px text-white mr-2 cursor-pointer" size="16" :class="{ 'animate-spin': loading }" @click="handleRefresh">
+            <Refresh />
+          </el-icon>
+        </div>
+        <div class="recharge-btn cursor-pointer mr-2 flex-center shrink-0 h-8 rounded-2 px-3 font-600 color-white z-101" @click.prevent="handleClick('recharge')">
+          <span class="text-13px whitespace-nowrap">
+            {{ $t("web.i18nFront.label.recharge") }}
+          </span>
+        </div>
+        <Notice @onClick="handleNoticeClick" />
+      </template>
+
+      <div class="relative flex items-center gap-[1px]">
+        <el-popover
+          class="box-item"
+          placement="bottom-end"
+          trigger="click"
+          width="400px"
+        >
+          <template #reference>
+            <div
+              class="flex items-center gap-2 bg-[#276aa5] hover:bg-[#3387d1] text-white cursor-pointer transition-all duration-300 h-8 px-2 rounded-l-2 rounded-r-none cursor-pointer relative"
+            >
+              <el-icon size="16"><Setting /></el-icon>
+              <el-icon><ArrowDown /></el-icon>
+            </div>
+          </template>
+          <div>
+            <SettingPanel />
+          </div>
+        </el-popover>
+        <!-- language -->
         <div class="language-box">
-          <SwitchLanguagePop width="315px" effect="dark" />
+          <SwitchLanguagePop11 width="400px" effect="light" />
         </div>
       </div>
     </div>
   </div>
+
   <div ref="stickyRef"  class="h-47px w-full px-4 sticky top-0 z-1000 px-4">
     <div ref="stickyContentRef" class="kk-sticky-box">
-      <Logo />
       <div class="flex h-full items-center mr-4 grow-1">
         <div class="h-full w-full relative">
           <TopMenu />
@@ -75,24 +151,6 @@
           </span>
         </button>
       </div>
-      <div class="flex items-center" v-else>
-        <div class="flex-center mr-10px h-10 rounded-2 overflow-hidden bg-[var(--color-n700)]">
-          <div class="flex flex-col items-end">
-            <WalletAndCurrencySelector :show-title="false" />
-            <div class="leading-20px px-3 color-white font-600">
-              {{ balance }}
-            </div>
-          </div>
-          <div class="recharge-btn cursor-pointer mr-2px -ml-2 flex-center shrink-0 h-9 rounded-2 px-3 font-600 color-white z-101" @click.prevent="handleClick('recharge')">
-            <span class="text-13px whitespace-nowrap">
-              {{ $t("web.i18nFront.label.recharge") }}
-            </span>
-          </div>
-        </div>
-        <div class="nav-right-item"></div>
-        <Avatar />
-        <Notice @onClick="handleNoticeClick" />
-      </div>
     </div>
   </div>
   <NoticePannel v-model:show="isShowNotice" />
@@ -105,6 +163,7 @@ import useGameLocalImage from "@/hooks/useGameLocalImage";
 import useLinkOpenFunc from "@/04-kk-component-admin/components/hooks/useLinkOpenFunc";
 import { useGameStore, useUserStore } from "@/store";
 import { useQRCode } from "@vueuse/integrations/useQRCode";
+import SettingPanel from "../SettingPanel.vue";
 
 const { goToPayment } = useLinkOpenFunc();
 
@@ -119,6 +178,7 @@ const stickyRef = ref<HTMLElement | null>(null)
 const stickyContentRef = ref<HTMLElement | null>(null)
 const observer = ref<IntersectionObserver | null>(null)
 
+const loading = ref(false);
 const isShowNotice = ref(false);
 const onShowLogin = () => {
   userStore.setLoginModalState(true);
@@ -141,6 +201,12 @@ const handleClick = (path: string) => {
 
 const handleNoticeClick = () => {
   isShowNotice.value = !isShowNotice.value;
+}
+
+const handleRefresh = async () => {
+  loading.value = true;
+  await userStore.getUserBanlance();
+  loading.value = false;
 }
 
 
@@ -235,7 +301,7 @@ onUnmounted(() => {
 }
 
 .nav-right-item {
-  @apply mr-6 relative;
+  @apply mr-2 relative;
 }
 .nav-right-item::before {
   content: "";
@@ -255,8 +321,7 @@ onUnmounted(() => {
   height: 100%;
   margin: 0 auto;
   padding: 0 10px;
-  background-image: linear-gradient(92deg, #1e283f, rgba(20, 27, 46, .6));
-  background-color: #090f1e;
+  background-color: #205583;
   border-radius: 10px;
   transition: border-radius .2s;
   will-change: border-radius, transform;
@@ -273,8 +338,7 @@ onUnmounted(() => {
   z-index: -1;
   border-radius: 10px;
   transition: opacity .4s ease, border-radius .2s, transform .2s;
-  background-image: linear-gradient(92deg, #1e283f, rgba(20, 27, 46, .6));
-  background-color: #090f1e;
+  background-color: #205583;
   opacity: 1;
 }
 

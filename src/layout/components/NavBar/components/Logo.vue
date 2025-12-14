@@ -1,7 +1,7 @@
 <template>
-  <div class="flex items-center mr-4 min-w-100px">
+  <div class="flex items-center mr-4 min-w-10px">
     <a class="flex-center" href="javascript:void(0)" @click="goHome">
-      <img class="h-7 object-contain" v-if="logo" :src="logo" alt="" />
+      <img class="object-contain" v-if="logo" :src="logo" alt="" />
     </a>
   </div>
 </template>

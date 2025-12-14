@@ -2,6 +2,7 @@
 import { localImg } from '@/01-kk-system/allUtils/utils';
 import type { IObject } from '@/01-kk-system/allHttp/types/common'
 import useLinkOpenFunc from '@/04-kk-component-admin/components/hooks/useLinkOpenFunc';
+import { useGoGameRoom } from '@/hooks/useGoGameRoom';
 
 defineOptions({
   name: "OuterGameCard",
@@ -67,12 +68,15 @@ function getImage(info: Record<string, any>) {
   }
 }
 
-function onClickCard(item: Record<string, any>) {
+const { goToGameRoom } = useGoGameRoom()
+async function onClickCard(item: Record<string, any>) {
+  let url = ''
   if (props.type === 'outer') {
-    onClickOuterSubGame(item)
+    url = await onClickOuterSubGame(item, true)
   } else {
-    onClickClassiGame(item)
+    url = await onClickClassiGame(item, true) as string
   }
+  goToGameRoom(item, encodeURIComponent(url || ''))
 }
 </script>
 

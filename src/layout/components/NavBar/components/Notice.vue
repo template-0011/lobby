@@ -1,5 +1,5 @@
 <template>
-  <div class="button-body flex-center rounded-2 w-10 h-10 cursor-pointer" @click="handleClick">
+  <div class="button-body flex-center rounded-2 w-8 h-8 mr-2 cursor-pointer" @click="handleClick">
     <el-icon color="#fff" size="20px"><BellFilled /></el-icon>
   </div>
 </template>
@@ -16,8 +16,7 @@ const handleClick = () => {
 </script>
 <style scoped>
 .button-body {
-  background-image: linear-gradient(0deg, transparent 0%, transparent 100%);
-  background-color: #1f2841;
+  background-color: #276aa5;
   cursor: pointer;
   transition: all .1s;
 }

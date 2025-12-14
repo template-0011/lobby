@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div class="top-b-1 h-full gap-2 mr-4 flex-1 rounded-5 overflow-hidden">
+      <!-- <div class="top-b-1 h-full gap-2 mr-4 flex-1 rounded-5 overflow-hidden">
         <div class="w-full h-full flex flex-col p-7">
           <p class="top-b-text">赌场现金回扣高达 30%</p>
           <div class="mt-auto cursor-pointer flex-center h-11 px-8 font-600 text-16px min-w-174px bg-white color-#090f1e rounded-2 whitespace-nowrap">
@@ -66,7 +66,7 @@
             <span>去充值</span>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -127,10 +127,11 @@ onBeforeMount(() => {
 }
 
 .home-banner-container {
-  width: calc(
-    var(--home__header-carousel-width) / (var(--home__header-base-width) / 100) *
-      1%
-  );
+  // width: calc(
+  //   var(--home__header-carousel-width) / (var(--home__header-base-width) / 100) *
+  //     1%
+  // );
+  width: 100%;
 }
 
 .kk-swiper-button-next,

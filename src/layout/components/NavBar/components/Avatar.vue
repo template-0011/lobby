@@ -1,17 +1,17 @@
 <template>
   <el-dropdown :teleported="true" trigger="click">
     <div
-      class="flex-center h-10 mr-10px overflow-hidden relative cursor-pointer rounded-2"
+      class="flex-center h-8 mr-1px overflow-hidden relative cursor-pointer rounded-l-2 rounded-r-none"
     >
-      <div class="absolute inset-0 bg-[#1f2841] rounded-l-full rounded-r-2 pointer-events-none select-none"></div>
-      <div class="bg-[#2c3756] rounded-full w-7 h-7 flex-center ml-1 z-1">
+      <div class="absolute inset-0 bg-[#276aa5] pointer-events-none select-none"></div>
+      <div class="rounded-full w-7 h-7 flex-center ml-1 z-1">
         <el-icon color="#fff" size="20px">
           <UserFilled />
         </el-icon>
       </div>
-      <div class="mx-2 z-1">
-        <el-icon color="#fff" size="12px" class="transform rotate-90">
-          <MoreFilled />
+      <div class="mr-2 z-1">
+        <el-icon color="#fff" size="12px" class="transform">
+          <ArrowDown />
         </el-icon>
       </div>
     </div>

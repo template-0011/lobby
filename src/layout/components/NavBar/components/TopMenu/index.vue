@@ -1,8 +1,23 @@
 <template>
   <ul class="kk-top-menu h-full w-full overflow-x-auto flex items-center justify-start text-13px color-white">
     <li class="relative h-full px-2 flex-center cursor-pointer" ref="menuRefs" v-for="menu in menus" :key="menu.id" @click="onClickMenu(menu)">
-      <div :class="`top-menu relative h-full flex-center ${ (currentType === menu.type || `${menu.routeName}` === `${groupID}`) ? 'active' : '' }`">
-        <div class="relative title">{{ menu.title }}</div>
+      <div :class="`relative top-menu relative h-full flex-center ${ (currentType === menu.type || `${menu.routeName}` === `${groupID}`) ? 'active' : '' }`">
+        <div v-if="menu.type !== 'sports'" class="relative title">{{ menu.title }}</div>
+        <el-popover
+          placement="bottom"
+          width="auto"
+          v-else
+          popper-style="--el-popover-font-size: 11px;--el-popover-padding: 4px;min-width: auto;padding: 4px 8px;color: #276aa5;"
+        >
+          <template #reference>
+            <div class="relative title">{{ menu.title }}</div>
+          </template>
+          <div class="flex flex-col items-center">
+            <div v-for="item in menu.children" :key="item.outerGamerID" @click="onClickSports(item)">
+              <div class="py-2 text-sm cursor-pointer hover:text-[#262e48] rounded-2">{{ item.outerGamerName }}</div>
+            </div>
+          </div>
+        </el-popover>
       </div>
     </li>
     <div class="scroll-view" :style="scrollViewStyle">
@@ -15,12 +30,16 @@
 
 <script lang="ts" setup>
 import { IObject } from '@/01-kk-system/allHttp/types/common';
+import { GameLineTypes } from '@/01-kk-system/middleware/fusionApi/game';
+import useLinkOpenFunc from '@/04-kk-component-admin/components/hooks/useLinkOpenFunc';
+import { useGoGameRoom } from '@/hooks/useGoGameRoom';
 import { useGameStore } from '@/store';
 
 const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const gameStore = useGameStore();
+const { onClickOuterGame } = useLinkOpenFunc();
 
 const menuRefs = ref<HTMLElement[]>([])
 const activeIndex = ref(-1)
@@ -45,6 +64,10 @@ const scrollViewStyle = computed(() => {
 
 const groupID = computed(() => route.params?.groupId as unknown as string)
 
+const sportsList = computed(() => {
+  return gameStore.sportGameList || []
+})
+
 const menus = computed(() => {
   const groupList = gameStore.allGroups || []
   return [
@@ -59,6 +82,15 @@ const menus = computed(() => {
       children: null,
     },
     ...groupList,
+    {
+      title: t('web.i18nFront.title.sports'),
+      id: 3,
+      route: '/sports',
+      routeName: 'Sports',
+      isHot: false,
+      type: 'sports',
+      children: sportsList.value,
+    },
     {
       title: t('web.i18nFront.title.egame'),
       id: 7,
@@ -84,15 +116,6 @@ const menus = computed(() => {
       routeName: 'GamesLobby',
       type: 'lottery',
       isHot: true,
-    },
-    {
-      title: t('web.i18nFront.title.sports'),
-      id: 3,
-      route: '/sports',
-      routeName: 'Sports',
-      isHot: false,
-      type: 'sports',
-      children: null,
     },
     {
       title: t('web.i18nFront.title.realbet'),
@@ -156,6 +179,12 @@ watch(route, (newVal) => {
     updateActiveIndex(menu)
   }
 })
+
+const { goToGameRoom } = useGoGameRoom()
+const onClickSports = async (item: GameLineTypes) => {
+  const url = await onClickOuterGame(item, true)
+  goToGameRoom(item, encodeURIComponent(url || ''))
+}
 
 // 组件挂载时初始化选中状态
 onMounted(() => {
